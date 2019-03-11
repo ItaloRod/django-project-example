@@ -20,10 +20,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'jjrv5kd3q@-714ks57bw=h_vzpl*wh&$qgjix^3orpwrc3%avl'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'jjrv5kd3q@-714ks57bw=h_vzpl*wh&$qgjix^3orpwrc3%avl')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('APP_DEBUG', True)
 
 ALLOWED_HOSTS = ['*']
 
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'exampleApp'
 ]
 
 MIDDLEWARE = [
@@ -55,7 +56,7 @@ ROOT_URLCONF = 'example.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['bingoos/templates/html'],
+        'DIRS': ['exampleApp/templates/html'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -76,8 +77,12 @@ WSGI_APPLICATION = 'example.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get('DB_NAME', 'ExampleApp'),
+        'USER': os.environ.get('DB_USER', 'postgres'),
+        'PASSWORD': os.environ.get('DB_PASS', '123'),
+        'HOST': os.environ.get('DB_HOST','localhost'),
+        'PORT': '5432'
     }
 }
 
@@ -104,9 +109,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
-LANGUAGE_CODE = 'pt-br'
+LANGUAGE_CODE = os.environ.get('APP_LANG','pt-br')
 
-TIME_ZONE = 'America/Fortaleza'
+TIME_ZONE = os.environ.get('APP_TZ','America/Fortaleza')
 
 USE_I18N = True
 
@@ -120,13 +125,13 @@ USE_TZ = True
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-STATIC_HOST = '<your cdn url>' if not DEBUG else ''
+# STATIC_HOST = '<your cdn url>' if not DEBUG else ''
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'bingoos', ''),
+    os.path.join(BASE_DIR, 'exampleApp', ''),
 ]
 
-STATIC_URL = 'bingoos/static/'
+STATIC_URL = 'exampleApp/static/'
 
 # destination directory where static files are copied and from which they are served
-STATIC_ROOT = os.path.join(BASE_DIR, 'bingoos', 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'exampleApp', 'static')

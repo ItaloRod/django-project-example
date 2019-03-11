@@ -9,18 +9,18 @@ browserSync.init({
 });
 
 gulp.task('less', function () {
-    return gulp.src('./bingoos/templates/less/**/*.less')
+    return gulp.src('./exampleApp/templates/less/**/*.less')
         .pipe(less({
             paths: [path.join(__dirname, 'less', 'includes')],
         }))
-        .pipe(gulp.dest('./bingoos/static/css'))
+        .pipe(gulp.dest('./exampleApp/static/css'))
         .pipe(browserSync.stream());
 })
 
 
 gulp.task('watch', function() {
-    gulp.watch(['bingoos/templates/less/**/*.less'], gulp.parallel('less'))
-    gulp.watch(['bingoos/templates/html/*.html','bingoos/**/*.py'])
+    gulp.watch(['exampleApp/templates/less/**/*.less'], gulp.parallel('less'))
+    gulp.watch(['exampleApp/templates/html/*.html','exampleApp/**/*.py'])
     .on('change',browserSync.reload)
 })
 
