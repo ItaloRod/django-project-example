@@ -1,3 +1,4 @@
 {
-    "git.ignoreLimitWarning": true
+    "git.ignoreLimitWarning": true,
+    "python.pythonPath": "D:\\paulo\\anaconda\\envs\\Django\\python.exe"
 }
