@@ -22,7 +22,7 @@ gulp.task('ts', function () {
         noImplicitAny:true,
         outFile: 'main.js'
     }))
-    .pipe(gulp.dest(path.join(__dirname, 'exampleApp','static','css')))
+    .pipe(gulp.dest(path.join(__dirname, 'exampleApp','static','js')))
     .pipe(browserSync.stream())
 })
 
