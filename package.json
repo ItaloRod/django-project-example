@@ -22,6 +22,7 @@
     "@fortawesome/fontawesome-free": "^5.7.2",
     "bootstrap-less-port": "^1.0.0",
     "gulp-typescript": "^5.0.0",
-    "less": "^3.9.0"
+    "less": "^3.9.0",
+    "ts-lint": "^4.5.1"
   }
 }

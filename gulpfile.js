@@ -10,26 +10,29 @@ browserSync.init({
 });
 
 gulp.task('less', function () {
-    return gulp.src(path.join(__dirname,'less','main.less'))
-        .pipe(less({
-            allowEmpty: true
-        }))
-        .pipe(gulp.dest(path.join(__dirname,'static','css')))
+    return gulp.src(path.join(__dirname,'exampleApp','templates','less','main.less'))
+        .pipe(less())
+        .pipe(gulp.dest(path.join(__dirname,'exampleApp','static','css')))
         .pipe(browserSync.stream());
 })
 
 gulp.task('ts', function () {
-    return gulp.src(path.join(__dirname,'less','main.ts'))
-    .pipe(ts())
+    return gulp.src(path.join(__dirname,'exampleApp','templates','ts','main.ts'))
+    .pipe(ts({
+        noImplicitAny:true,
+        outFile: 'main.js'
+    }))
+    .pipe(gulp.dest(path.join(__dirname, 'exampleApp','static','css')))
+    .pipe(browserSync.stream())
 })
 
 
-
 gulp.task('watch', function() {
+    gulp.watch(['exampleApp/templates/ts/**/*.ts'], gulp.parallel('ts'))
     gulp.watch(['exampleApp/templates/less/**/*.less'], gulp.parallel('less'))
     gulp.watch(['exampleApp/templates/html/*.html','exampleApp/**/*.py'])
     .on('change',browserSync.reload)
 })
 
 
-gulp.task('default', gulp.parallel('watch'));
+gulp.task('default', gulp.parallel(['watch']));
